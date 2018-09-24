@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class BookService {
-    private SubService service;
+    private SubService service = new SubService();
     private String hostname = "localhost";
     private String database = "bookish";
     private String user = "bookish";
@@ -19,13 +19,20 @@ public class BookService {
     private String connectionString = "jdbc:mysql://" + hostname + "/" + database + "?user=" + user + "&password=" + password + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT&useSSL=false";
 
 
-    public void addBookToLibrary(Book book, Author author){
+    public void addBookToLibrary(Book book){
         service.addBook(book);
-        service.addAuthor(author);
-        AuthorToBook authorToBook = new AuthorToBook();
-        authorToBook.setAuthorID(author.getIdAuthor());
-        authorToBook.setBookID(book.getIdBooks());
-        service.addauthorToBook(authorToBook);
+
+        ArrayList<Book> books = service.getAll(Book.class, "books");
+        int highestCopyNo = 0;
+
+        for(Book i: books){
+            if(i.getCopyNo() > highestCopyNo){
+                highestCopyNo = i.getCopyNo();
+            }
+        }
+
+        book.setCopyNo(highestCopyNo+1);
+        book.setCheckedOut(false);
 
     }
 
@@ -39,7 +46,14 @@ public class BookService {
         }
 
         service.delete(book.getIdBooks(), "books");
+    }
 
+    public void addAuthorToBook(Book book, Author author){
+        service.addAuthor(author);
+        AuthorToBook authorToBook = new AuthorToBook();
+        authorToBook.setAuthorID(author.getIdAuthor());
+        authorToBook.setBookID(book.getIdBooks());
+        service.addauthorToBook(authorToBook);
 
     }
 }

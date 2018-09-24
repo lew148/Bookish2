@@ -65,7 +65,7 @@ public class SubService {
     }
 
     public void addBook(Book book) {
-        add(book, "INSERT INTO books (bookName, checkedOut, isbn, copy) VALUES (:bookName, :checkedOut, :isbn, :copy)");
+        add(book, "INSERT INTO books (bookName, checkedOut, isbn, copyNo) VALUES (:bookName, :checkedOut, :isbn, :copyNo)");
     }
 
     public void addAccount(Account account) {

@@ -44,9 +44,9 @@ public class IndexController {
     }
 
     @RequestMapping("/books/add")
-    RedirectView addBook(@ModelAttribute Book book, Author author) {
+    RedirectView addBook(@ModelAttribute Book book) {
 
-        bookService.addBookToLibrary(book, author);
+        bookService.addBookToLibrary(book);
 
         return new RedirectView("/books");
     }
