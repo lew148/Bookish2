@@ -43,7 +43,7 @@ public class Book {
         return copyNo;
     }
 
-    public void setCopy(int copy) {
+    public void setCopyNo(int copy) {
         this.copyNo = copyNo;
     }
 }

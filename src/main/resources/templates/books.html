@@ -26,9 +26,10 @@
                 <tbody>
                     <tr th:each="book : ${model.books}">
                         <td th:text="${book.bookName}"></td>
-                        <td th:text="${book.checkedOut}"></td>
+                        <td th:if="${book.checkedOut == true}"><span>✔</span></td>
+                        <td th:unless="${book.checkedOut == true}"><span>✖</span></td>
                         <td th:text="${book.isbn}"></td>
-                        <td th:text="${book.copy}"></td>
+                        <td th:text="${book.copyNo}"></td>
                         <td>
                             <a th:href="${'/books/delete?bookId=' + book.idBooks}">Delete</a>
                         </td>
