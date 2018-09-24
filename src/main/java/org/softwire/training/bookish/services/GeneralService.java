@@ -13,10 +13,10 @@ public class GeneralService {
     private String password = "bookish";
     private String connectionString = "jdbc:mysql://" + hostname + "/" + database + "?user=" + user + "&password=" + password + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT&useSSL=false";
 
-//    private Jdbi jdbi = Jdbi.create(connectionString);
+    private Jdbi jdbi = Jdbi.create(connectionString);
 
-    public static ArrayList generateList(Class x, String tableName, String connection){
-        Jdbi jdbi = Jdbi.create(connection);
+    public ArrayList getAll(Class x, String tableName){
+        Jdbi jdbi = Jdbi.create(connectionString);
 
         List list = jdbi.withHandle(handle -> {
             return handle.createQuery("SELECT * FROM " + tableName)
