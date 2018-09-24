@@ -1,31 +1,49 @@
 package org.softwire.training.bookish.databaseModels;
 
 public class Book {
-    private int id;
-    private String title;
-    private String author;
+    private int idBooks;
+    private String bookName;
+    private boolean checkedOut;
+    private String isbn;
+    private int copy;
 
-    public int getId() {
-        return id;
+    public int getIdBooks() {
+        return idBooks;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdBooks(int idBooks) {
+        this.idBooks = idBooks;
     }
 
-    public String getTitle() {
-        return title;
+    public String getBookName() {
+        return bookName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public String getAuthor() {
-        return author;
+    public boolean isCheckedOut() {
+        return checkedOut;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setCheckedOut(boolean checkedOut) {
+        this.checkedOut = checkedOut;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public int getCopy() {
+        return copy;
+    }
+
+    public void setCopy(int copy) {
+        this.copy = copy;
     }
 }

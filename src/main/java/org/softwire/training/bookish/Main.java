@@ -11,7 +11,7 @@ public class Main {
     private static String database = "bookish";
     private static String user = "bookish";
     private static String password = "bookish";
-    private static String connectionString = "jdbc:mysql://" + hostname + "/" + database + "?user=" + user + "&password=" + password + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT&useSSL=false";
+    private static String connectionString = "jdbc:mysql://" + hostname + "/" + database + "?user=" + user + "&password=" + password + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT&useSSL=false&allowPublicKeyRetrieval=true";
 
     public static void main(String[] args) throws SQLException {
         System.out.println("JDBC method...");
@@ -48,7 +48,7 @@ public class Main {
         );
 
         for (Book book: books) {
-            System.out.println("Book ID: " + book.getId() + " has author: '" + book.getAuthor() + "' and title: '" + book.getTitle() + "'");
+            System.out.println("Book ID: " + book.getIdBooks() + "' and title: '" + book.getBookName() + "'");
         }
     }
 }

@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
     <head>
-        <title>Bookish - Home</title>
+        <bookName>Bookish - Home</bookName>
     </head>
     <body>
         <div layout:fragment="content" class="container body-content">
@@ -24,16 +24,16 @@
                 <tbody>
                     <tr th:each="book : ${model.books}">
                         <td th:text="${book.author}"></td>
-                        <td th:text="${book.title}"></td>
+                        <td th:text="${book.bookName}"></td>
                         <td>
-                            <a th:href="${'/books/delete?bookId=' + book.id}">Delete</a>
+                            <a th:href="${'/books/delete?bookId=' + book.idBooks}">Delete</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
             <h2>Add a book:</h2>
-            <form id="messageForm" th:action="@{/books/add}" method="post">
+            <form idBooks="messageForm" th:action="@{/books/add}" method="post">
                 <div>
                     <label>
                         Author:
@@ -43,7 +43,7 @@
                 <div>
                     <label>
                         Title:
-                        <input type="text" name="title">
+                        <input type="text" name="bookName">
                     </label>
                 </div>
                 <div>
