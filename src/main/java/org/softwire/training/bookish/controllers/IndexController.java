@@ -25,7 +25,7 @@ public class IndexController {
     private BookService bookService;
 
     @Autowired
-    private SubService generalService;
+    private SubService subService;
 
     @RequestMapping("/")
     ModelAndView home() {
@@ -35,7 +35,7 @@ public class IndexController {
     @RequestMapping("/books")
     ModelAndView books() {
 
-        List<Book> allBooks = generalService.getAll(Book.class, "books");
+        List<Book> allBooks = subService.getAll(Book.class, "books");
 
         BooksPageModel booksPageModel = new BooksPageModel();
         booksPageModel.books = allBooks;
