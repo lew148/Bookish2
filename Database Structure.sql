@@ -29,7 +29,7 @@ CREATE TABLE `books` (
   `bookName` varchar(45) DEFAULT NULL,
   `checkedOut` tinyint(4) DEFAULT NULL,
   `isbn` varchar(45) DEFAULT NULL,
-  `copy` int(11) DEFAULT NULL,
+  `copyNo` int(11) DEFAULT NULL,
   PRIMARY KEY (`idBooks`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE `loans` (

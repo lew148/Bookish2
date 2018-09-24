@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GeneralService {
+public class SubService {
 
     private String hostname = "localhost";
     private String database = "bookish";

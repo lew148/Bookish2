@@ -1,9 +1,9 @@
 package org.softwire.training.bookish.controllers;
 
-import org.softwire.training.bookish.databaseModels.Account;
+import org.softwire.training.bookish.databaseModels.Author;
 import org.softwire.training.bookish.databaseModels.Book;
 import org.softwire.training.bookish.services.BookService;
-import org.softwire.training.bookish.services.GeneralService;
+import org.softwire.training.bookish.services.SubService;
 import org.softwire.training.bookish.viewModels.BooksPageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +25,7 @@ public class IndexController {
     private BookService bookService;
 
     @Autowired
-    private GeneralService generalService;
+    private SubService generalService;
 
     @RequestMapping("/")
     ModelAndView home() {
@@ -44,17 +44,17 @@ public class IndexController {
     }
 
     @RequestMapping("/books/add")
-    RedirectView addBook(@ModelAttribute Book book) {
+    RedirectView addBook(@ModelAttribute Book book, Author author) {
 
-        bookService.addBook(book);
+        bookService.addBookToLibrary(book, author);
 
         return new RedirectView("/books");
     }
 
     @RequestMapping("/books/delete")
-    RedirectView deleteBook(@RequestParam int bookId) {
+    RedirectView deleteBook(@RequestParam Book book) {
 
-        bookService.deleteBook(bookId);
+        bookService.deleteBookFromLibrary(book);
 
         return new RedirectView("/books");
     }

@@ -5,7 +5,7 @@ public class Book {
     private String bookName;
     private boolean checkedOut;
     private String isbn;
-    private int copy;
+    private int copyNo;
 
     public int getIdBooks() {
         return idBooks;
@@ -39,11 +39,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public int getCopy() {
-        return copy;
+    public int getCopyNo() {
+        return copyNo;
     }
 
     public void setCopy(int copy) {
-        this.copy = copy;
+        this.copyNo = copyNo;
     }
 }
