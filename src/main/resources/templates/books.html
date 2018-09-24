@@ -16,15 +16,19 @@
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th>Author</th>
                         <th>Title</th>
+                        <th>Checked Out?</th>
+                        <th>ISBN</th>
+                        <th>Copy</th>
                         <th>Delete?</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="book : ${model.books}">
-                        <td th:text="${book.author}"></td>
                         <td th:text="${book.bookName}"></td>
+                        <td th:text="${book.checkedOut}"></td>
+                        <td th:text="${book.isbn}"></td>
+                        <td th:text="${book.copy}"></td>
                         <td>
                             <a th:href="${'/books/delete?bookId=' + book.idBooks}">Delete</a>
                         </td>
@@ -34,12 +38,6 @@
 
             <h2>Add a book:</h2>
             <form idBooks="messageForm" th:action="@{/books/add}" method="post">
-                <div>
-                    <label>
-                        Author:
-                        <input type="text" name="author">
-                    </label>
-                </div>
                 <div>
                     <label>
                         Title:

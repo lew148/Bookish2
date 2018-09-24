@@ -3,7 +3,6 @@ package org.softwire.training.bookish.services;
 import org.jdbi.v3.core.Jdbi;
 import org.softwire.training.bookish.databaseModels.Book;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class BookService {

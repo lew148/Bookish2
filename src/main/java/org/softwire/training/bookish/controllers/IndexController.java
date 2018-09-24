@@ -23,6 +23,8 @@ public class IndexController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
     private GeneralService generalService;
 
     @RequestMapping("/")
@@ -33,7 +35,7 @@ public class IndexController {
     @RequestMapping("/books")
     ModelAndView books() {
 
-        List<Book> allBooks = generalService.getAll(Account.class, "accounts");
+        List<Book> allBooks = generalService.getAll(Book.class, "books");
 
         BooksPageModel booksPageModel = new BooksPageModel();
         booksPageModel.books = allBooks;

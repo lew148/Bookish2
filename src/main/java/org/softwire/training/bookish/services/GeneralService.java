@@ -2,11 +2,13 @@ package org.softwire.training.bookish.services;
 
 import org.jdbi.v3.core.Jdbi;
 import org.softwire.training.bookish.databaseModels.*;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class GeneralService {
 
     private String hostname = "localhost";
