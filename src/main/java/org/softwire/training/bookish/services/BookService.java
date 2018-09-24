@@ -15,15 +15,6 @@ public class BookService {
 
     private Jdbi jdbi = Jdbi.create(connectionString);
 
-    public List<Book> getAllBooks() {
-        List<Book> books = jdbi.withHandle(handle ->
-            handle.createQuery("SELECT * FROM books")
-                .mapToBean(Book.class)
-                .list()
-        );
-
-        return books;
-    }
 
     public void addBook(Book book) {
         jdbi.withHandle(handle ->
