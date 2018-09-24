@@ -1,7 +1,9 @@
 package org.softwire.training.bookish.controllers;
 
+import org.softwire.training.bookish.databaseModels.Account;
 import org.softwire.training.bookish.databaseModels.Book;
 import org.softwire.training.bookish.services.BookService;
+import org.softwire.training.bookish.services.GeneralService;
 import org.softwire.training.bookish.viewModels.BooksPageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ public class IndexController {
 
     @Autowired
     private BookService bookService;
+    private GeneralService generalService;
 
     @RequestMapping("/")
     ModelAndView home() {
@@ -30,7 +33,7 @@ public class IndexController {
     @RequestMapping("/books")
     ModelAndView books() {
 
-        List<Book> allBooks = bookService.getAllBooks();
+        List<Book> allBooks = generalService.getAll(Account.class, "accounts");
 
         BooksPageModel booksPageModel = new BooksPageModel();
         booksPageModel.books = allBooks;
