@@ -18,25 +18,25 @@ public class BookService {
 
 
     public void addBookToLibrary(Book book){
-        service.addBook(book);
 
         ArrayList<Book> books = service.getAll(Book.class, "books");
-        int highestCopyNo = 0;
+        book.setCopyNo(0);
 
         for(Book i: books){
-            if(i.getBookName() == book.getBookName()){
-                if(i.getCopyNo() > highestCopyNo){
-                    highestCopyNo = i.getCopyNo();
-                    System.out.println("RAAAAAAZZZZ");
+            if(book.getBookName().equals(i.getBookName())){
+                System.out.println("Name match");
+                if(book.getCopyNo() <= i.getCopyNo()) {
+                    System.out.println("updating copy type");
+                    book.setCopyNo(i.getCopyNo() + 1);
                 }
-
             }
         }
 
-        System.out.println("ZZZZUUUULLL");
 
-        book.setCopyNo(highestCopyNo+1);
+
         book.setCheckedOut(false);
+        System.out.println(book.getCopyNo());
+        service.addBook(book);
 
     }
 
