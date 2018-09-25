@@ -1,18 +1,18 @@
 package org.softwire.training.bookish.databaseModels;
 
 public class Book {
-    private int idBooks;
+    private int id;
     private String bookName;
     private boolean checkedOut;
     private String isbn;
     private int copyNo;
 
-    public int getIdBooks() {
-        return idBooks;
+    public int getId() {
+        return id;
     }
 
-    public void setIdBooks(int idBooks) {
-        this.idBooks = idBooks;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBookName() {

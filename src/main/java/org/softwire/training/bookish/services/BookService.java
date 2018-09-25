@@ -1,13 +1,11 @@
 package org.softwire.training.bookish.services;
 
-import org.jdbi.v3.core.Jdbi;
 import org.softwire.training.bookish.databaseModels.Author;
 import org.softwire.training.bookish.databaseModels.AuthorToBook;
 import org.softwire.training.bookish.databaseModels.Book;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class BookService {
@@ -26,10 +24,16 @@ public class BookService {
         int highestCopyNo = 0;
 
         for(Book i: books){
-            if(i.getCopyNo() > highestCopyNo){
-                highestCopyNo = i.getCopyNo();
+            if(i.getBookName() == book.getBookName()){
+                if(i.getCopyNo() > highestCopyNo){
+                    highestCopyNo = i.getCopyNo();
+                    System.out.println("RAAAAAAZZZZ");
+                }
+
             }
         }
+
+        System.out.println("ZZZZUUUULLL");
 
         book.setCopyNo(highestCopyNo+1);
         book.setCheckedOut(false);
@@ -40,19 +44,35 @@ public class BookService {
         ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
 
         for(AuthorToBook i : authortobook){
-            if(i.getBookID() == book.getIdBooks()){
-                service.delete(i.getIdAuthorToBook(),"authortobook");
+            if(i.getBookID() == book.getId()){
+                service.delete(i.getId(),"authortobook");
             }
         }
 
-        service.delete(book.getIdBooks(), "books");
+        service.delete(book.getId(), "books");
+    }
+
+    public String getAuthors(Book book){
+        String authors = "";
+        ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
+        ArrayList<Author> authorsList = service.getAll(Author.class, "author");
+        for(AuthorToBook i : authortobook){
+            if(i.getBookID() == book.getId()){
+                for(Author j: authorsList){
+                    if(j.getId() == i.getAuthorID()){
+                        authors += j.getAuthorFirstName() + " " + j.getAuthorLastName() + "  ";
+                    }
+                }
+            }
+        }
+        return authors;
     }
 
     public void addAuthorToBook(Book book, Author author){
         service.addAuthor(author);
         AuthorToBook authorToBook = new AuthorToBook();
-        authorToBook.setAuthorID(author.getIdAuthor());
-        authorToBook.setBookID(book.getIdBooks());
+        authorToBook.setAuthorID(author.getId());
+        authorToBook.setBookID(book.getId());
         service.addauthorToBook(authorToBook);
 
     }

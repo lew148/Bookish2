@@ -46,7 +46,7 @@ public class SubService {
         );
 
         for (Book book: books) {
-            System.out.println("Book ID: " + book.getIdBooks() + "' and title: '" + book.getBookName() + "'");
+            System.out.println("Book ID: " + book.getId() + "' and title: '" + book.getBookName() + "'");
         }
 
 
@@ -73,7 +73,7 @@ public class SubService {
     }
 
     public void addAuthor(Author author) {
-        add(author, "INSERT INTO authors (authorFirstName, authorLastName) VALUES (:authorFirstName, :authorLastName)");
+        add(author, "INSERT INTO author (authorFirstName, authorLastName) VALUES (:authorFirstName, :authorLastName)");
     }
 
     public void addLoan(Loan loan) {
@@ -98,6 +98,15 @@ public class SubService {
                         .bind("id", id)
                         .execute()
         );
+    }
+
+    public void update(int id, String tableName, String column, String columnValue){
+        jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE "+tableName+" SET "+column+" = "+columnValue+ " WHERE id = :id")
+                        .bind("id", id)
+                        .execute()
+        );
+
     }
 
 

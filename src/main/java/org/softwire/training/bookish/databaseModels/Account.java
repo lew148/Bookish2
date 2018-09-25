@@ -1,7 +1,7 @@
 package org.softwire.training.bookish.databaseModels;
 
 public class Account {
-    private int idAccounts;
+    private int id;
     private String firstName;
     private String lastName;
     private String password;
@@ -31,12 +31,12 @@ public class Account {
         this.firstName = firstName;
     }
 
-    public int getIdAccounts() {
-        return idAccounts;
+    public int getId() {
+        return id;
     }
 
-    public void setIdAccounts(int idAccounts) {
-        this.idAccounts = idAccounts;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {

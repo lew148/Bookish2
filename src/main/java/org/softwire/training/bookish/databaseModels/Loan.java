@@ -3,18 +3,18 @@ package org.softwire.training.bookish.databaseModels;
 import java.util.Date;
 
 public class Loan {
-    private int idLoans;
+    private int id;
     private int ownerID;
     private int bookID;
     private Date dateOfLoan;
     private Date dateOfExpectedReturn;
 
-    public int getIdLoans() {
-        return idLoans;
+    public int getId() {
+        return id;
     }
 
-    public void setIdLoans(int idLoans) {
-        this.idLoans = idLoans;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getOwnerID() {

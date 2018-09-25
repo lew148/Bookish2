@@ -41,6 +41,7 @@ public class IndexController {
         booksPageModel.books = allBooks;
 
         return new ModelAndView("books", "model", booksPageModel);
+
     }
 
     @RequestMapping("/books/add")

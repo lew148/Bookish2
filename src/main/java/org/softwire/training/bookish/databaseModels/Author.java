@@ -1,16 +1,16 @@
 package org.softwire.training.bookish.databaseModels;
 
 public class Author {
-    private int idAuthor;
+    private int id;
     private String authorFirstName;
     private String authorLastName;
 
-    public int getIdAuthor() {
-        return idAuthor;
+    public int getId() {
+        return id;
     }
 
-    public void setIdAuthor(int idAuthor) {
-        this.idAuthor = idAuthor;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAuthorFirstName() {
