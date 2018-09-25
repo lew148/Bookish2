@@ -94,7 +94,7 @@ public class SubService {
 
     public void delete(int id, String tableName) {
         jdbi.withHandle(handle ->
-                handle.createUpdate("DELETE FROM"+tableName+"WHERE id = :id")
+                handle.createUpdate("DELETE FROM "+tableName+" WHERE id = :id")
                         .bind("id", id)
                         .execute()
         );

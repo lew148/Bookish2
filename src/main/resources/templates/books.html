@@ -26,6 +26,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="book : ${model.books}">
+                        <td th:text="${book.id}"></td>
                         <td th:text="${book.bookName}"></td>
                         <td th:if="${book.checkedOut == true}"><span>✔</span></td>
                         <td th:unless="${book.checkedOut == true}"><span>✖</span></td>
@@ -33,14 +34,18 @@
                         <td th:text="${model.getAuthors(book)}"></td>
                         <td th:text="${book.copyNo}"></td>
                         <td>
-                            <a th:href="${'/books/delete?bookId=' + book.id}">Delete</a>
+                            <a th:href="${'/books/delete?id=' + book.id}"><span>Delete</span></a>
+                            <!--<form id="deleteForm" action="/books/delete" method="post">-->
+                                <!--<input type="hidden" name="id" th:value="${book.id}">-->
+                                <!--<input type="submit" value="Delete">-->
+                            <!--</form>-->
                         </td>
                     </tr>
                 </tbody>
             </table>
 
             <h2>Add a book:</h2>
-            <form id="messageForm" th:action="@{/books/add}" method="post">
+            <form id="addForm" th:action="@{/books/add}" method="post">
                 <div>
                     <label>
                         Title:

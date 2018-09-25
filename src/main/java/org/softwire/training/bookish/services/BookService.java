@@ -40,16 +40,16 @@ public class BookService {
 
     }
 
-    public void deleteBookFromLibrary(Book book){
+    public void deleteBookFromLibrary(int id){
         ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
 
         for(AuthorToBook i : authortobook){
-            if(i.getBookID() == book.getId()){
+            if(i.getBookID() == id) {
                 service.delete(i.getId(),"authortobook");
             }
         }
 
-        service.delete(book.getId(), "books");
+        service.delete(id, "books");
     }
 
     public String getAuthors(Book book){
