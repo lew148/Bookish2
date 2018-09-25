@@ -12,49 +12,43 @@
                 <p class="lead">Welcome to the Bookish application</p>
             </div>
 
-            <h2>Our books:</h2>
+            <h2>Our Accounts:</h2>
             <table class="table">
                 <thead class="thead-light">
                     <tr>
                         <th>ID</th>
-                        <th>Title</th>
-                        <th>Checked Out?</th>
-                        <th>ISBN</th>
-                        <th>Author(s)</th>
-                        <th>Copy</th>
-                        <th>Delete?</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="book : ${model.books}">
-                        <td th:text="${book.id}"></td>
-                        <td th:text="${book.bookName}"></td>
-                        <td th:if="${book.checkedOut == true}"><span>✔</span></td>
-                        <td th:unless="${book.checkedOut == true}"><span>✖</span></td>
-                        <td th:text="${book.isbn}"></td>
-                        <td th:text="${model.getAuthors(book)}"></td>
-                        <td th:text="${book.copyNo}"></td>
-                        <td>
-                            <a th:href="${'/books/delete?id=' + book.id}"><span>Delete</span></a>
-                        </td>
+                    <tr th:each="account : ${model.accounts}">
+                        <td th:text="${account.id}"></td>
+                        <td th:text="${account.firstName}"></td>
+                        <td th:if="${account.lastName}"></td>
+                        <td th:if="${account.username}"></td>
                     </tr>
                 </tbody>
             </table>
 
-            <h2>Add a book:</h2>
-            <form id="addForm" th:action="@{/books/add}" method="post">
+            <h2>Add an Account:</h2>
+            <form id="addForm" th:action="@{/accounts/add}" method="post">
                 <div>
                     <label>
-                        Title:
-                        <input type="text" name="bookName">
+                        First Name:
+                        <input type="text" name="firstName">
                         <br>
-                        ISBN:
-                        <input type="text" name="isbn">
+                        Last Name:
+                        <input type="text" name="lastName">
+                        <br>
+                        Username:
+                        <input type="text" name="username">
 
                     </label>
                 </div>
                 <div>
-                    <input type="submit" value="Add book" />
+                    <input type="submit" value="Add Account" />
                 </div>
             </form>
 

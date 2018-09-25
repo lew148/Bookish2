@@ -36,10 +36,6 @@
                         <td th:text="${book.copyNo}"></td>
                         <td>
                             <a th:href="${'/books/delete?id=' + book.id}"><span>Delete</span></a>
-                            <!--<form id="deleteForm" action="/books/delete" method="post">-->
-                                <!--<input type="hidden" name="id" th:value="${book.id}">-->
-                                <!--<input type="submit" value="Delete">-->
-                            <!--</form>-->
                         </td>
                     </tr>
                 </tbody>
@@ -54,6 +50,9 @@
                         <br>
                         ISBN:
                         <input type="text" name="isbn">
+                        <br>
+                        Copy Number:
+                        <input type="text" name="copyNo">
 
                     </label>
                 </div>

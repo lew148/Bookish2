@@ -1,15 +1,10 @@
 package org.softwire.training.bookish.viewModels;
 
-import org.softwire.training.bookish.databaseModels.Book;
-import org.softwire.training.bookish.services.BookService;
+import org.softwire.training.bookish.databaseModels.Account;
 
 import java.util.List;
 
-public class BooksPageModel {
-    public List<Book> books;
+public class AccountsPageModel {
+    public List<Account> accounts;
 
-    public static String getAuthors(Book x){
-        BookService bs = new BookService();
-        return bs.getAuthors(x);
-    }
 }
