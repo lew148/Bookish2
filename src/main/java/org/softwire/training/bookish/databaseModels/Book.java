@@ -44,6 +44,6 @@ public class Book {
     }
 
     public void setCopyNo(int copy) {
-        this.copyNo = copyNo;
+        this.copyNo = copy;
     }
 }
