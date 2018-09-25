@@ -40,6 +40,9 @@ public class IndexController {
 
         BooksPageModel booksPageModel = new BooksPageModel();
         booksPageModel.books = allBooks;
+        for(Book i: booksPageModel.books){
+            i.setAuthors(BooksPageModel.getAuthors(i));
+        }
 
         return new ModelAndView("books", "model", booksPageModel);
 
@@ -49,6 +52,8 @@ public class IndexController {
     RedirectView addBook(@ModelAttribute Book book) {
 
         bookService.addBookToLibrary(book);
+        bookService.addAuthorToBook(book, "Adam", "Maddden");
+        System.out.println(book.getAuthors());
 
         return new RedirectView("/books");
     }

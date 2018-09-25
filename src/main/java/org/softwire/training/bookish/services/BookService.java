@@ -26,14 +26,12 @@ public class BookService {
             if(book.getBookName().equals(i.getBookName())){
                 System.out.println("Name match");
                 if(book.getCopyNo() <= i.getCopyNo()) {
-                    System.out.println("updating copy type");
                     book.setCopyNo(i.getCopyNo() + 1);
                 }
             }
         }
 
         book.setCheckedOut(false);
-        System.out.println(book.getCopyNo());
         service.addBook(book);
 
     }
@@ -49,15 +47,15 @@ public class BookService {
         service.delete(id, "books");
     }
 
-    public String getAuthors(Book book){
-        String authors = "";
+    public ArrayList<Author> getAuthors(Book book){
+        ArrayList<Author> authors = null;
         ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
         ArrayList<Author> authorsList = service.getAll(Author.class, "author");
         for(AuthorToBook i : authortobook){
             if(i.getBookID() == book.getId()){
                 for(Author j: authorsList){
                     if(j.getId() == i.getAuthorID()){
-                        authors += j.getAuthorFirstName() + " " + j.getAuthorLastName() + "  ";
+                        authors.add(j);
                     }
                 }
             }
@@ -68,6 +66,8 @@ public class BookService {
     public void addAuthorToBook(Book book, String firstName, String lastName){
         ArrayList<Author> authorList = service.getAll(Author.class, "author");
         ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
+        ArrayList<Book> books = service.getAll(Book.class, "books");
+
         Author author = null;
         AuthorToBook authorToBook = null;
 
@@ -80,6 +80,10 @@ public class BookService {
             author = new Author();
             author.setAuthorFirstName(firstName);
             author.setAuthorLastName(lastName);
+            service.addAuthor(author);
+            ArrayList<Author> x = book.getAuthors();
+            x.add(author);
+            book.setAuthors(x);
         }
 
         for(AuthorToBook i : authortobook){
@@ -91,6 +95,12 @@ public class BookService {
         }
         if(authorToBook != null) {
             service.addauthorToBook(authorToBook);
+        }
+
+        for(Book i: books){
+            if(book.getBookName().equals(i.getBookName())){
+                i.setAuthors(book.getAuthors());
+            }
         }
     }
 }

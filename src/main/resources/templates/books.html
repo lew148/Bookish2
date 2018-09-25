@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:type="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layout}">
     <head>
         <bookName>Bookish - Home</bookName>
@@ -32,7 +32,7 @@
                         <td th:if="${book.checkedOut == true}"><span>✔</span></td>
                         <td th:unless="${book.checkedOut == true}"><span>✖</span></td>
                         <td th:text="${book.isbn}"></td>
-                        <td th:text="${model.getAuthors(book)}"></td>
+                        <td th:text="${book.authors}"></td>
                         <td th:text="${book.copyNo}"></td>
                         <td>
                             <a th:href="${'/books/delete?id=' + book.id}"><span>Delete</span></a>
@@ -54,7 +54,6 @@
                         <br>
                         ISBN:
                         <input type="text" name="isbn">
-
                     </label>
                 </div>
                 <div>
