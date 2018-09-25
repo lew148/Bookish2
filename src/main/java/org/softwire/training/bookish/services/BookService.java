@@ -32,8 +32,6 @@ public class BookService {
             }
         }
 
-
-
         book.setCheckedOut(false);
         System.out.println(book.getCopyNo());
         service.addBook(book);
@@ -48,7 +46,6 @@ public class BookService {
                 service.delete(i.getId(),"authortobook");
             }
         }
-
         service.delete(id, "books");
     }
 
@@ -68,12 +65,32 @@ public class BookService {
         return authors;
     }
 
-    public void addAuthorToBook(Book book, Author author){
-        service.addAuthor(author);
-        AuthorToBook authorToBook = new AuthorToBook();
-        authorToBook.setAuthorID(author.getId());
-        authorToBook.setBookID(book.getId());
-        service.addauthorToBook(authorToBook);
+    public void addAuthorToBook(Book book, String firstName, String lastName){
+        ArrayList<Author> authorList = service.getAll(Author.class, "author");
+        ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
+        Author author = null;
+        AuthorToBook authorToBook = null;
 
+        for(Author i : authorList){
+            if(i.getAuthorFirstName().equals(firstName) && i.getAuthorLastName().equals(lastName)){
+                author = i;
+            }
+        }
+        if(author == null){
+            author = new Author();
+            author.setAuthorFirstName(firstName);
+            author.setAuthorLastName(lastName);
+        }
+
+        for(AuthorToBook i : authortobook){
+            if(!(i.getAuthorID() == author.getId() && i.getBookID() == book.getId())){
+                authorToBook = new AuthorToBook();
+                authorToBook.setAuthorID(author.getId());
+                authorToBook.setBookID(book.getId());
+            }
+        }
+        if(authorToBook != null) {
+            service.addauthorToBook(authorToBook);
+        }
     }
 }
