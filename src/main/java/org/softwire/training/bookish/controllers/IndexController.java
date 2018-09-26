@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -120,16 +121,15 @@ public class IndexController {
 
     @RequestMapping("/copies/add")
     RedirectView addCopy(@ModelAttribute Copy copy) {
-        List<Book> allBooks = subService.getAll(Book.class, "books");
+        try {
+            List<Book> allBooks = subService.getAll(Book.class, "books");
 
-        for (Book i : allBooks){
-            if (i.getId() == copy.getBookID()){
-                copyService.addCopy(copy);
-            } else {
-                return new RedirectView("/copies");
+            for (Book i : allBooks) {
+                if (i.getId() == copy.getBookID()) {
+                    copyService.addCopy(copy);
+                }
             }
-        }
-
+        } catch (Exception e) {}
         return new RedirectView("/copies");
     }
 
