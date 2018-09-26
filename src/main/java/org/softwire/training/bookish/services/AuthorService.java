@@ -18,7 +18,7 @@ public class AuthorService {
 
 
     public Author addAuthor(String firstName, String lastName) {
-        ArrayList<Author> authorList = service.getAll(Author.class, "author");
+        ArrayList<Author> authorList = service.getAll(Author.class, "authors");
 
         Author author = null;
 
