@@ -3,6 +3,8 @@ package org.softwire.training.bookish.controllers;
 import org.softwire.training.bookish.databaseModels.Account;
 import org.softwire.training.bookish.databaseModels.Author;
 import org.softwire.training.bookish.databaseModels.Book;
+import org.softwire.training.bookish.services.AuthorService;
+import org.softwire.training.bookish.services.AuthorToBookService;
 import org.softwire.training.bookish.services.BookService;
 import org.softwire.training.bookish.services.SubService;
 import org.softwire.training.bookish.viewModels.AccountsPageModel;
@@ -30,6 +32,12 @@ public class IndexController {
     @Autowired
     private SubService subService;
 
+    @Autowired
+    private AuthorService authorService;
+
+    @Autowired
+    private AuthorToBookService authorToBookService;
+
     @RequestMapping("/")
     ModelAndView home() {
         return new ModelAndView("index");
@@ -54,8 +62,9 @@ public class IndexController {
         BooksPageModel booksPageModel = new BooksPageModel();
         booksPageModel.books = allBooks;
         for(Book i: booksPageModel.books){
-            i.setAuthors(BooksPageModel.getAuthors(i));
+            i.setAuthors(bookService.getAuthors(i));
         }
+
 
         return new ModelAndView("books", "model", booksPageModel);
 
@@ -64,9 +73,9 @@ public class IndexController {
     @RequestMapping("/books/add")
     RedirectView addBook(@ModelAttribute Book book) {
 
-        bookService.addBookToLibrary(book);
-        bookService.addAuthorToBook(book, "Adam", "Maddden");
-        System.out.println(book.getAuthors());
+        Book x = bookService.addBookToLibrary(book);
+        Author author = authorService.addAuthor("Bob", "Maddden");
+        bookService.addAuthorToBook(x, author);
 
         return new RedirectView("/books");
     }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 @Service
 public class BookService {
     private SubService service = new SubService();
+    private AuthorToBookService authorToBookService = new AuthorToBookService();
     private String hostname = "localhost";
     private String database = "bookish";
     private String user = "bookish";
@@ -17,14 +18,13 @@ public class BookService {
     private String connectionString = "jdbc:mysql://" + hostname + "/" + database + "?user=" + user + "&password=" + password + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT&useSSL=false";
 
 
-    public void addBookToLibrary(Book book){
+    public Book addBookToLibrary(Book book){
 
         ArrayList<Book> books = service.getAll(Book.class, "books");
         book.setCopyNo(0);
 
         for(Book i: books){
             if(book.getBookName().equals(i.getBookName())){
-                System.out.println("Name match");
                 if(book.getCopyNo() <= i.getCopyNo()) {
                     book.setCopyNo(i.getCopyNo() + 1);
                 }
@@ -33,6 +33,9 @@ public class BookService {
 
         book.setCheckedOut(false);
         service.addBook(book);
+        books = service.getAll(Book.class, "books");
+        book.setId(books.get(books.size()-1).getId());
+        return book;
 
     }
 
@@ -48,7 +51,7 @@ public class BookService {
     }
 
     public ArrayList<Author> getAuthors(Book book){
-        ArrayList<Author> authors = null;
+        ArrayList<Author> authors = new ArrayList<>();
         ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
         ArrayList<Author> authorsList = service.getAll(Author.class, "author");
         for(AuthorToBook i : authortobook){
@@ -63,44 +66,8 @@ public class BookService {
         return authors;
     }
 
-    public void addAuthorToBook(Book book, String firstName, String lastName){
-        ArrayList<Author> authorList = service.getAll(Author.class, "author");
-        ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
-        ArrayList<Book> books = service.getAll(Book.class, "books");
+    public void addAuthorToBook(Book book, Author author){
+        authorToBookService.addAuthorToBook(book, author);
 
-        Author author = null;
-        AuthorToBook authorToBook = null;
-
-        for(Author i : authorList){
-            if(i.getAuthorFirstName().equals(firstName) && i.getAuthorLastName().equals(lastName)){
-                author = i;
-            }
-        }
-        if(author == null){
-            author = new Author();
-            author.setAuthorFirstName(firstName);
-            author.setAuthorLastName(lastName);
-            service.addAuthor(author);
-            ArrayList<Author> x = book.getAuthors();
-            x.add(author);
-            book.setAuthors(x);
-        }
-
-        for(AuthorToBook i : authortobook){
-            if(!(i.getAuthorID() == author.getId() && i.getBookID() == book.getId())){
-                authorToBook = new AuthorToBook();
-                authorToBook.setAuthorID(author.getId());
-                authorToBook.setBookID(book.getId());
-            }
-        }
-        if(authorToBook != null) {
-            service.addauthorToBook(authorToBook);
-        }
-
-        for(Book i: books){
-            if(book.getBookName().equals(i.getBookName())){
-                i.setAuthors(book.getAuthors());
-            }
-        }
     }
 }

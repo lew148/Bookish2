@@ -32,7 +32,7 @@
                         <td th:if="${book.checkedOut == true}"><span>✔</span></td>
                         <td th:unless="${book.checkedOut == true}"><span>✖</span></td>
                         <td th:text="${book.isbn}"></td>
-                        <td th:text="${book.authors}"></td>
+                        <td th:text="${book.authorString}"></td>
                         <td th:text="${book.copyNo}"></td>
                         <td>
                             <a th:href="${'/books/delete?id=' + book.id}"><span>Delete</span></a>
