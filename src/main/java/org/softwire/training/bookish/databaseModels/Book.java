@@ -1,14 +1,14 @@
 package org.softwire.training.bookish.databaseModels;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 
 public class Book {
     private int id;
-    private String bookName;
+    private String title;
     private boolean checkedOut;
     private String isbn;
-    private int copyNo;
     private ArrayList<Author> authors = new ArrayList<>();
     private String authorString = new String();
 
@@ -20,12 +20,12 @@ public class Book {
         this.id = id;
     }
 
-    public String getBookName() {
-        return bookName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public boolean isCheckedOut() {
@@ -42,14 +42,6 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
-    }
-
-    public int getCopyNo() {
-        return copyNo;
-    }
-
-    public void setCopyNo(int copy) {
-        this.copyNo = copy;
     }
 
     public ArrayList<Author> getAuthors() {

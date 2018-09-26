@@ -19,38 +19,6 @@ public class SubService {
 
     private Jdbi jdbi = Jdbi.create(connectionString);
 
-    public void jdbcMethod() throws SQLException {
-        Connection connection = DriverManager.getConnection(connectionString);
-        try (Statement statement = connection.createStatement()) {
-
-            String query = "SELECT * FROM books";
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                int bookId = resultSet.getInt("id");
-                String author = resultSet.getString("author");
-                String title = resultSet.getString("title");
-
-                System.out.println("Book ID: " + bookId + " has author: '" + author + "' and title: '" + title + "'");
-            }
-        }
-    }
-
-    public void jdbiMethod() {
-        Jdbi jdbi = Jdbi.create(connectionString);
-
-        List<Book> books = jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM books")
-                        .mapToBean(Book.class)
-                        .list()
-        );
-
-        for (Book book: books) {
-            System.out.println("Book ID: " + book.getId() + "' and title: '" + book.getBookName() + "'");
-        }
-
-
-    }
 
     public ArrayList getAll(Class x, String tableName){
         Jdbi jdbi = Jdbi.create(connectionString);
@@ -65,7 +33,7 @@ public class SubService {
     }
 
     public void addBook(Book book) {
-        add(book, "INSERT INTO books (bookName, checkedOut, isbn, copyNo) VALUES (:bookName, :checkedOut, :isbn, :copyNo)");
+        add(book, "INSERT INTO books (title, checkedOut, isbn) VALUES (:title, :checkedOut, :isbn)");
     }
 
     public void addAccount(Account account) {
@@ -73,15 +41,19 @@ public class SubService {
     }
 
     public void addAuthor(Author author) {
-        add(author, "INSERT INTO author (authorFirstName, authorLastName) VALUES (:authorFirstName, :authorLastName)");
+        add(author, "INSERT INTO authors (authorFirstName, authorLastName) VALUES (:authorFirstName, :authorLastName)");
     }
 
     public void addLoan(Loan loan) {
-        add(loan, "INSERT INTO loans (author, title) VALUES (:author, :title)");
+        add(loan, "INSERT INTO loans (ownerID, bookID, dateOfLoan, dateOfExpectedReturn) VALUES (:ownerID, :bookID, :dateOfLoan, dateOfExpectedReturn)");
     }
 
     public void addauthorToBook(AuthorToBook authorToBook) {
         add(authorToBook, "INSERT INTO authortobook (bookID, authorID) VALUES (:bookID, :authorID)");
+    }
+
+    public void addCopy(Copy copy) {
+        add(copy, "INSERT INTO copies (bookID) VALUES (:bookID)");
     }
 
     private void add(Object o, String sql) {

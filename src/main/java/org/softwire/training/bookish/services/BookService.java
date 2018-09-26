@@ -3,6 +3,7 @@ package org.softwire.training.bookish.services;
 import org.softwire.training.bookish.databaseModels.Author;
 import org.softwire.training.bookish.databaseModels.AuthorToBook;
 import org.softwire.training.bookish.databaseModels.Book;
+import org.softwire.training.bookish.databaseModels.Copy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,20 +18,17 @@ public class BookService {
     private String password = "bookish";
     private String connectionString = "jdbc:mysql://" + hostname + "/" + database + "?user=" + user + "&password=" + password + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT&useSSL=false";
 
-
-    public Book addBookToLibrary(Book book){
+    public void addBookToLibrary(Book book){
 
         ArrayList<Book> books = service.getAll(Book.class, "books");
-        book.setCopyNo(0);
 
         for(Book i: books){
-            if(book.getBookName().equals(i.getBookName())){
-                if(book.getCopyNo() <= i.getCopyNo()) {
-                    book.setCopyNo(i.getCopyNo() + 1);
-                }
+            if(book.getTitle().equals(i.getTitle())){
+                System.out.println("Name match");
+                Copy copy = new Copy();
+                copy.setBookID(book.getId());
             }
         }
-
         book.setCheckedOut(false);
         service.addBook(book);
         books = service.getAll(Book.class, "books");
@@ -38,6 +36,7 @@ public class BookService {
         return book;
 
     }
+
 
     public void deleteBookFromLibrary(int id){
         ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
@@ -53,7 +52,7 @@ public class BookService {
     public ArrayList<Author> getAuthors(Book book){
         ArrayList<Author> authors = new ArrayList<>();
         ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
-        ArrayList<Author> authorsList = service.getAll(Author.class, "author");
+        ArrayList<Author> authorsList = service.getAll(Author.class, "authors");
         for(AuthorToBook i : authortobook){
             if(i.getBookID() == book.getId()){
                 for(Author j: authorsList){
