@@ -10,6 +10,7 @@ import org.softwire.training.bookish.services.BookService;
 import org.softwire.training.bookish.services.CopyService;
 import org.softwire.training.bookish.services.SubService;
 import org.softwire.training.bookish.viewModels.AccountsPageModel;
+import org.softwire.training.bookish.viewModels.AuthorsPageModel;
 import org.softwire.training.bookish.viewModels.BooksPageModel;
 import org.softwire.training.bookish.viewModels.CopiesPageModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,8 +89,6 @@ public class IndexController {
     RedirectView addBook(@ModelAttribute Book book) {
 
         Book x = bookService.addBookToLibrary(book);
-        Author author = authorService.addAuthor("Bob", "Maddden");
-        bookService.addAuthorToBook(x, author);
 
         return new RedirectView("/books");
     }
@@ -140,4 +139,24 @@ public class IndexController {
 
         return new RedirectView("/copies");
     }
+
+    @RequestMapping("/authors")
+    ModelAndView authors() {
+        List<Author> allAuthors = subService.getAll(Author.class, "authors");
+
+        AuthorsPageModel authorsPageModel = new AuthorsPageModel();
+        authorsPageModel.authors = allAuthors;
+
+        return new ModelAndView("authors", "model", authorsPageModel);
+
+    }
+
+    @RequestMapping("/authors/add")
+    RedirectView addAuthor(@RequestParam String firstName, String lastName) {
+
+        authorService.addAuthor(firstName, lastName);
+
+        return new RedirectView("/authors");
+    }
+
 }
