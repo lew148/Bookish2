@@ -24,6 +24,9 @@
                     <tr th:each="author : ${model.authors}">
                         <td th:text="${author.authorFirstName}"></td>
                         <td th:text="${author.authorLastName}"></td>
+                        <td>
+                        <a th:href="${'/authors/delete?id=' + author.id}" onclick="return confirm('Are you sure you want to remove this Author?')"><span>Delete</span></a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

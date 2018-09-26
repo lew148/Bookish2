@@ -36,4 +36,8 @@ public class AuthorService {
 
         return author;
     }
+
+    public void deleteAuthor(int id){
+        service.delete(id, "authors");
+    }
 }

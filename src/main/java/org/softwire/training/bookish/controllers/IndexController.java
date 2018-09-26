@@ -159,4 +159,11 @@ public class IndexController {
         return new RedirectView("/authors");
     }
 
+    @RequestMapping("/authors/delete")
+    RedirectView deleteAuthor(@RequestParam int id) {
+
+        authorService.deleteAuthor(id);
+
+        return new RedirectView("/authors");
+    }
 }
