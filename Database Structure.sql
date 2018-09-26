@@ -26,7 +26,7 @@ CREATE TABLE `authortobook` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE `books` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bookName` varchar(45) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
   `checkedOut` tinyint(4) DEFAULT NULL,
   `isbn` varchar(45) DEFAULT NULL,
   `copyNo` int(11) DEFAULT NULL,

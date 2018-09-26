@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
     <head>
-        <bookName>Bookish - Home</bookName>
+        <title>Bookish - Home</title>
     </head>
     <body>
         <div layout:fragment="content" class="container body-content">
@@ -26,8 +26,8 @@
                     <tr th:each="account : ${model.accounts}">
                         <td th:text="${account.id}"></td>
                         <td th:text="${account.firstName}"></td>
-                        <td th:if="${account.lastName}"></td>
-                        <td th:if="${account.username}"></td>
+                        <td th:text="${account.lastName}"></td>
+                        <td th:text="${account.username}"></td>
                     </tr>
                 </tbody>
             </table>

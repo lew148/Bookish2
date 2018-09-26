@@ -1,17 +1,18 @@
 package org.softwire.training.bookish.controllers;
 
 import org.softwire.training.bookish.databaseModels.Account;
-import org.softwire.training.bookish.databaseModels.Author;
 import org.softwire.training.bookish.databaseModels.Book;
+import org.softwire.training.bookish.databaseModels.Copy;
 import org.softwire.training.bookish.services.BookService;
+import org.softwire.training.bookish.services.CopyService;
 import org.softwire.training.bookish.services.SubService;
 import org.softwire.training.bookish.viewModels.AccountsPageModel;
 import org.softwire.training.bookish.viewModels.BooksPageModel;
+import org.softwire.training.bookish.viewModels.CopiesPageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -30,10 +31,17 @@ public class IndexController {
     @Autowired
     private SubService subService;
 
+    @Autowired
+    private CopyService copyService;
+
     @RequestMapping("/")
     ModelAndView home() {
         return new ModelAndView("index");
     }
+
+
+
+
 
     @RequestMapping("/accounts")
     ModelAndView accounts() {
@@ -46,9 +54,13 @@ public class IndexController {
         return new ModelAndView("accounts", "model", accountsPageModel);
 
     }
+
+
+
+
+
     @RequestMapping("/books")
     ModelAndView books() {
-
         List<Book> allBooks = subService.getAll(Book.class, "books");
 
         BooksPageModel booksPageModel = new BooksPageModel();
@@ -79,4 +91,43 @@ public class IndexController {
         return new RedirectView("/books");
     }
 
+
+
+
+
+
+    @RequestMapping("/copies")
+    ModelAndView copies() {
+        List<Copy> allCopies = subService.getAll(Copy.class, "copies");
+
+        CopiesPageModel copiesPageModel = new CopiesPageModel();
+        copiesPageModel.copies = allCopies;
+
+        return new ModelAndView("copies", "model", copiesPageModel);
+
+    }
+
+
+    @RequestMapping("/copies/add")
+    RedirectView addCopy(@ModelAttribute Copy copy) {
+        List<Book> allBooks = subService.getAll(Book.class, "books");
+
+        for (Book i : allBooks){
+            if (i.getId() == copy.getBookID()){
+                copyService.addCopy(copy);
+            } else {
+                return new RedirectView("/copies");
+            }
+        }
+
+        return new RedirectView("/copies");
+    }
+
+    @RequestMapping("/copies/delete")
+    RedirectView deleteCopy(@RequestParam int id) {
+
+        copyService.deleteCopy(id);
+
+        return new RedirectView("/copies");
+    }
 }

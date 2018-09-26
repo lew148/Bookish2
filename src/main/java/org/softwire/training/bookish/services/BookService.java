@@ -3,6 +3,7 @@ package org.softwire.training.bookish.services;
 import org.softwire.training.bookish.databaseModels.Author;
 import org.softwire.training.bookish.databaseModels.AuthorToBook;
 import org.softwire.training.bookish.databaseModels.Book;
+import org.softwire.training.bookish.databaseModels.Copy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,25 +17,22 @@ public class BookService {
     private String password = "bookish";
     private String connectionString = "jdbc:mysql://" + hostname + "/" + database + "?user=" + user + "&password=" + password + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT&useSSL=false";
 
-
     public void addBookToLibrary(Book book){
 
         ArrayList<Book> books = service.getAll(Book.class, "books");
-        book.setCopyNo(0);
 
         for(Book i: books){
-            if(book.getBookName().equals(i.getBookName())){
+            if(book.getTitle().equals(i.getTitle())){
                 System.out.println("Name match");
-                if(book.getCopyNo() <= i.getCopyNo()) {
-                    book.setCopyNo(i.getCopyNo() + 1);
-                }
+                Copy copy = new Copy();
+                copy.setBookID(book.getId());
             }
         }
-
         book.setCheckedOut(false);
         service.addBook(book);
 
     }
+
 
     public void deleteBookFromLibrary(int id){
         ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
@@ -50,7 +48,7 @@ public class BookService {
     public ArrayList<Author> getAuthors(Book book){
         ArrayList<Author> authors = null;
         ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
-        ArrayList<Author> authorsList = service.getAll(Author.class, "author");
+        ArrayList<Author> authorsList = service.getAll(Author.class, "authors");
         for(AuthorToBook i : authortobook){
             if(i.getBookID() == book.getId()){
                 for(Author j: authorsList){
@@ -64,7 +62,7 @@ public class BookService {
     }
 
     public void addAuthorToBook(Book book, String firstName, String lastName){
-        ArrayList<Author> authorList = service.getAll(Author.class, "author");
+        ArrayList<Author> authorList = service.getAll(Author.class, "authors");
         ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
         ArrayList<Book> books = service.getAll(Book.class, "books");
 
@@ -98,7 +96,7 @@ public class BookService {
         }
 
         for(Book i: books){
-            if(book.getBookName().equals(i.getBookName())){
+            if(book.getTitle().equals(i.getTitle())){
                 i.setAuthors(book.getAuthors());
             }
         }

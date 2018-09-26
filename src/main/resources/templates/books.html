@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:type="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layout}">
     <head>
-        <bookName>Bookish - Home</bookName>
+        <title>Bookish - Home</title>
     </head>
     <body>
         <div layout:fragment="content" class="container body-content">
@@ -21,21 +21,19 @@
                         <th>Checked Out?</th>
                         <th>ISBN</th>
                         <th>Author(s)</th>
-                        <th>Copy</th>
-                        <th>Delete?</th>
+                        <th>Delete Title</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="book : ${model.books}">
                         <td th:text="${book.id}"></td>
-                        <td th:text="${book.bookName}"></td>
+                        <td th:text="${book.title}"></td>
                         <td th:if="${book.checkedOut == true}"><span>✔</span></td>
                         <td th:unless="${book.checkedOut == true}"><span>✖</span></td>
                         <td th:text="${book.isbn}"></td>
                         <td th:text="${book.authors}"></td>
-                        <td th:text="${book.copyNo}"></td>
                         <td>
-                            <a th:href="${'/books/delete?id=' + book.id}"><span>Delete</span></a>
+                            <a th:href="${'/books/delete?id=' + book.id}" onclick="return confirm('Are you sure you want to remove this Title?')"><span>Delete</span></a>
                         </td>
                     </tr>
                 </tbody>
@@ -46,7 +44,7 @@
                 <div>
                     <label>
                         Title:
-                        <input type="text" name="bookName">
+                        <input type="text" name="title">
                         <br>
                         ISBN:
                         <input type="text" name="isbn">
