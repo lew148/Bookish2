@@ -45,7 +45,7 @@ public class BookService {
 
         for(AuthorToBook i : authortobook){
             if(i.getBookID() == id) {
-                service.delete(i.getId(),"authortobook");
+                authorToBookService.deleteAutorToBook(i.getId());
             }
         }
         service.delete(id, "books");

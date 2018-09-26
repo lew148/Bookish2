@@ -34,15 +34,5 @@ public class AccountService {
 
     }
 
-    public void deleteBookFromLibrary(int id){
-        ArrayList<AuthorToBook> authortobook= service.getAll(AuthorToBook.class, "authortobook");
 
-        for(AuthorToBook i : authortobook){
-            if(i.getBookID() == id) {
-                service.delete(i.getId(),"authortobook");
-            }
-        }
-
-        service.delete(id, "books");
-    }
 }

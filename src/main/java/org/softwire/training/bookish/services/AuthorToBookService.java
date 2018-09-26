@@ -45,4 +45,8 @@ public class AuthorToBookService {
             }
         }
     }
+
+    public void deleteAutorToBook(int id){
+        service.delete(id, "authortobook");
+    }
 }
