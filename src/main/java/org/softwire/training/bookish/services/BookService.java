@@ -18,7 +18,7 @@ public class BookService {
     private String password = "bookish";
     private String connectionString = "jdbc:mysql://" + hostname + "/" + database + "?user=" + user + "&password=" + password + "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT&useSSL=false";
 
-    public void addBookToLibrary(Book book){
+    public Book addBookToLibrary(Book book){
 
         ArrayList<Book> books = service.getAll(Book.class, "books");
 

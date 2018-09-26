@@ -40,7 +40,7 @@ public class AuthorToBookService {
         book.addAuthors(author);
 
         for(Book i: books){
-            if(book.getBookName().equals(i.getBookName())){
+            if(book.getTitle().equals(i.getTitle())){
                 i.setAuthors(book.getAuthors());
             }
         }

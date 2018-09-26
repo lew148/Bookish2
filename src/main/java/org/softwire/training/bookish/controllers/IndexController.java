@@ -1,6 +1,7 @@
 package org.softwire.training.bookish.controllers;
 
 import org.softwire.training.bookish.databaseModels.Account;
+import org.softwire.training.bookish.databaseModels.Author;
 import org.softwire.training.bookish.databaseModels.Book;
 import org.softwire.training.bookish.databaseModels.Copy;
 import org.softwire.training.bookish.services.AuthorService;
